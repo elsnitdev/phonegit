@@ -1,0 +1,349 @@
+/* Thiết kế thanh điều hướng */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #00246b;
+  padding: 10px 20px;
+  color: white;
+}
+
+/* Logo */
+.navbar .logo a {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+/* Các mục trong navbar */
+.nav-items {
+  display: flex;
+  align-items: center;
+}
+
+/* Các mục liên kết */
+.nav-items a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+/* Hiệu ứng hover cho các mục */
+.nav-items a:hover {
+  background-color: #b6aeae51;
+}
+
+/* Thiết kế dropdown */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Nút dropdown */
+.dropbtn {
+  background-color: #00246b;
+  color: white;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+/* Hiệu ứng hover cho nút dropdown */
+.dropbtn:hover {
+  background-color: #b6aeae51;
+}
+
+/* Các mục trong dropdown */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+/* Các mục con trong dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Hiệu ứng hover cho các mục trong dropdown */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Hiển thị dropdown khi hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Thanh tìm kiếm */
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.search-input {
+  border: none;
+  padding: 8px 15px;
+  font-size: 14px;
+  width: 200px;
+  outline: none;
+}
+
+.search-btn {
+  background-color: #ffffff;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-btn:hover {
+  background-color: #ffffff;
+}
+
+.search-btn i {
+  color: rgb(3, 3, 3);
+  font-size: 16px;
+}
+/* Cài đặt kiểu cho slideshow */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #fcf6f5;
+}
+
+/* Slideshow container */
+.slideshow-container {
+  position: relative;
+  max-width: 100%;
+  margin: auto;
+}
+
+/* Các slide */
+.mySlides {
+  display: none;
+}
+
+/* Nút điều khiển (trước, sau) */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding: 16px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 3px;
+  user-select: none;
+  transition: background-color 0.3s;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+/* Hiệu ứng hover cho các nút */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Định dạng cho hình ảnh */
+img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+/*==========================================================*/
+main {
+  background: #cadcfc;
+}
+.slideshow-container {
+  position: relative;
+  max-width: 690px;
+  max-height: 300px;
+  margin: auto;
+}
+
+/* Các slide */
+.mySlides {
+  display: none;
+}
+
+/* Nút điều khiển (trước, sau) */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding: 16px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 3px;
+  user-select: none;
+  transition: background-color 0.3s;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+/* Hiệu ứng hover cho các nút */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+/*==================================================*/
+/* Định dạng phần hiển thị sản phẩm */
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+
+/* Định dạng mỗi sản phẩm */
+.product-item {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  padding: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Ảnh sản phẩm */
+.product-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Tên sản phẩm */
+.product-item h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+/* Mô tả sản phẩm */
+.product-item .description {
+  font-size: 14px;
+  color: #555;
+  margin: 10px 0;
+}
+
+/* Giá sản phẩm */
+.product-item .price {
+  font-size: 16px;
+  font-weight: bold;
+  color: #e67e22;
+  margin: 10px 0;
+}
+
+/* Nút Thêm vào giỏ hàng */
+.product-item .add-to-cart {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.product-item .add-to-cart:hover {
+  background-color: #45a049;
+}
+
+/* ====================Footer====================== */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 30px 20px;
+  margin-top: 50px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-info {
+  flex: 1;
+}
+
+.footer-info h4 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.footer-info p {
+  margin: 5px 0;
+}
+
+.footer-social {
+  flex: 1;
+  text-align: right;
+}
+
+.footer-social h4 {
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.footer-social a {
+  color: #e67e22;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer-social a:hover {
+  text-decoration: underline;
+}
