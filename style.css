@@ -231,11 +231,11 @@ main {
 /*==================================================*/
 /* Định dạng phần hiển thị sản phẩm */
 .products-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   padding: 20px;
-  justify-items: center;
 }
 
 /* Định dạng mỗi sản phẩm */
@@ -244,23 +244,22 @@ main {
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 100%;
-  max-width: 300px;
+  width: 250px;
   text-align: center;
   padding: 15px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product-item:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Ảnh sản phẩm */
 .product-item img {
   width: 100%;
   height: auto;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
 }
 
 /* Tên sản phẩm */

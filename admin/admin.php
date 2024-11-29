@@ -1,10 +1,32 @@
+<?php 
+require_once "../connect.php";
+// if (isset($_SESSION['username']) && !empty($_SESSION['username'])) 
+// {if($_SESSION['username']!='admin')
+// {
+//     header("location:http://localhost/PHONE/Phone/WEBPHONE/admin/admin.php");
+//     exit();
+// }
+// else
+// {
+// header("location:http://localhost/PHONE/Phone/WEBPHONE/index.php");
+// exit();
+// }
+// }
+// else {
+//     header("location:http://localhost/PHONE/Phone/WEBPHONE/loginform.php");
+// exit();
+// }
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Quản Lý Website Bán Hàng</title>
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="admins.css">
 </head>
 <body>
     <div class="admin-container">
@@ -17,7 +39,7 @@
                 <li><a href="#">Dashboard</a></li>
                 <li><a href="#">Quản lý Sản phẩm</a></li>
                 <li><a href="#">Quản lý Đơn hàng</a></li>
-                <li><a href="#">Quản lý Khách hàng</a></li>
+                <li><a href="customer.php">Quản lý Khách hàng</a></li>
                 <li><a href="#">Báo cáo</a></li>
                 <li><a href="#">Cài đặt</a></li>
             </ul>
@@ -63,7 +85,7 @@
             <div class="section">
                 <div class="product-management">
                     <h2>Quản Lý Sản Phẩm</h2>
-                    <button class="btn">Thêm Sản Phẩm</button>
+                    <button class="btn"><a href="addProduct.php">Thêm Sản Phẩm</a></button>
                     <button class="btn">Danh Sách Sản Phẩm</button>
                 </div>
 

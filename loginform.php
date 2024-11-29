@@ -1,37 +1,43 @@
 <?php 
-   session_start();
-   
+session_start();
 require_once "connect.php";
 
-$successMessage = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    if($username!='admin'||$password!='123'){
-      $sql = "SELECT * FROM users WHERE username = :username AND password = :password";
+if($username=='admin'&&$password=='123'){
+ 
+   // $_SESSION['username'] = $username;
+    header("Location: http://localhost/PHONE/Phone/WEBPHONE/admin/admin.php");
+    exit();
+}
+else   { $statement = $conn->prepare("SELECT * FROM Users WHERE Username = :username AND Password = :password");
     $statement->bindParam(':username', $username);
     $statement->bindParam(':password', $password);
-    $statement = $conn->prepare($sql);
     $statement->execute();
     $user = $statement->fetch(PDO::FETCH_ASSOC);
-   
-  if($user)
-  { 
-      header("Location:http://localhost/PHONE/Phone/WEBPHONE/index.php ");
-    exit();
-    $successMessage="successful";
-  }
-  else{
-    $successMessage="wrong user name or password";
-  }
-  }
-  else
-  {
-      
-      header("Location:http://localhost/PHONE/Phone/WEBPHONE/admin.php ");
-      exit();
+    if ($user) {
+    
+       if ($user['active'] == true) {
+            $errorMessage = "Your account is currently inactive. Please contact support.";
+        } else {
+            // Cập nhật cột 'active' thành true
+            $updateStatement = $conn->prepare("UPDATE Users SET active = true WHERE Username = :username");
+            $updateStatement->bindParam(':username', $username);
+            $updateStatement->execute();
 
-  }}
+            $_SESSION['username'] = $user['Username']; // Lưu tên người dùng vào session
+
+            header("Location: http://localhost/PHONE/Phone/WEBPHONE/index.php");
+            exit();
+        }
+    } else {
+        $errorMessage = "Invalid username or password";
+    }
+    }
+                }
+
+
 
 
 ?>
@@ -72,20 +78,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Các liên kết điều hướng -->
             <a href="index.php">Trang Chủ</a>
             <a href="loginform.php">Đăng Nhập</a>
-            <a href="#">Giỏ Hàng</a>
+            <a href="giohang.php">Giỏ Hàng</a>
         </div>
        
     </nav></header>
 <main> <div class="wrapper" style="background-color: #00246b;">
   
-      <form     >
+      <form action="loginform.php"  method="POST">
         <h1>Login</h1>
         <div class="input-box">
-          <input type="text" placeholder="UserName" name="username" required />
+        <input type="text" placeholder="UserName" name="username" id="username" required />
           <i class="bx bxs-user"></i>
         </div>
         <div class="input-box">
-          <input type="password" placeholder="Password" name="password"required />
+        <input type="password" placeholder="password"id="password"name="password" required />
           <i class="bx bxs-lock-alt"></i>
         </div>
         <div class="remember-forgot">
