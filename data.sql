@@ -10,6 +10,7 @@ CREATE TABLE Users (
     Address VARCHAR(100),
     Phone VARCHAR(11),
     Sex VARCHAR(7)
+    Active BOOLEAN
 );
 
 -- Tạo bảng Products

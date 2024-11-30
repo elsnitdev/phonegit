@@ -56,7 +56,7 @@ h1 {
 
 .user-table {
   max-width: 100%;
-  background-color: #337e115b;
+  background-color: #cadcfc;
   width: 80%;
   max-height: 50px;
   border-collapse: collapse;
@@ -71,7 +71,7 @@ td {
 }
 
 th {
-  background-color: #0d4794d2;
+  background-color: #447ae6;
 }
 
 tr:hover {

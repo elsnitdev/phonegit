@@ -284,7 +284,15 @@ main {
 }
 
 /* Nút Thêm vào giỏ hàng */
-.product-item .add-to-cart {
+.product-item {
+  position: relative;
+}
+
+.add-to-cart {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   background-color: #4caf50;
   color: white;
   border: none;
@@ -295,7 +303,11 @@ main {
   transition: background-color 0.3s ease;
 }
 
-.product-item .add-to-cart:hover {
+.product-item:hover .add-to-cart {
+  display: block;
+}
+
+.add-to-cart:hover {
   background-color: #45a049;
 }
 
@@ -345,4 +357,33 @@ footer {
 
 .footer-social a:hover {
   text-decoration: underline;
+}
+/*table*/
+h1 {
+  text-align: center;
+  color: #000000;
+}
+
+.user-table {
+  max-width: 100%;
+  background-color: #cadcfc;
+  width: 80%;
+  max-height: 50px;
+  border-collapse: collapse;
+  margin: 20px;
+}
+
+th,
+td {
+  padding: 10px 15px;
+  text-align: left;
+  border: 1.5px solid #000000;
+}
+
+th {
+  background-color: #447ae6;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
 }

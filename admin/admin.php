@@ -36,8 +36,8 @@ require_once "../connect.php";
                 <h2>Admin Dashboard</h2>
             </div>
             <ul class="sidebar-menu">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Quản lý Sản phẩm</a></li>
+                <li><a href="admin.php">Dashboard</a></li>
+                <li><a href="Product.php">Quản lý Sản phẩm</a></li>
                 <li><a href="#">Quản lý Đơn hàng</a></li>
                 <li><a href="customer.php">Quản lý Khách hàng</a></li>
                 <li><a href="#">Báo cáo</a></li>

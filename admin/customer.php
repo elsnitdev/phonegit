@@ -10,7 +10,7 @@ $users = $statement->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông tin Người dùng</title>
-    <link rel="stylesheet" href="customers.css">
+    <link rel="stylesheet" href="show.css">
 </head>
 <body>
 <div class="admin-container">
@@ -20,8 +20,8 @@ $users = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <h2>Admin Dashboard</h2>
             </div>
             <ul class="sidebar-menu">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Quản lý Sản phẩm</a></li>
+                <li><a href="admin.php">Dashboard</a></li>
+                <li><a href="Product.php">Quản lý Sản phẩm</a></li>
                 <li><a href="#">Quản lý Đơn hàng</a></li>
                 <li><a href="customer.php">Quản lý Khách hàng</a></li>
                 <li><a href="#">Báo cáo</a></li>
