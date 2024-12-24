@@ -58,3 +58,8 @@ $(document).ready(function () {
     handleDropdownItemClick.call($(".dropdown-content a")[0]);
   }
 });
+
+//clickl san pham
+function viewProduct(productID) {
+  window.location.href = "products.php?ProductID=" + productID;
+}

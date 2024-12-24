@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Document</title>  <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css">
     <style>
     main {
@@ -42,9 +45,9 @@
     <div class="dropdown">
         <button class="dropbtn">Danh Mục</button>
         <div class="dropdown-content">
-            <a href="#">Apple</a>
-            <a href="#">Samsung</a>
-            <a href="#">Xiaomi</a>
+        <a href="filter.php?Brand=Apple">Apple</a>
+            <a href="filter.php?Brand=SamSung">Samsung</a>
+            <a href="filter.php?Brand=Xiaomi">Xiaomi</a>
         </div>
     </div>
 
@@ -72,15 +75,16 @@
     $user = $statement->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
-        echo "<a href='User.php'>" . $user['Username'] . "</a>"; // Hiển thị tên người dùng
+       
+            echo "<a href='User.php'>" . $user['Username'] . "</a>"; // Hiển thị tên người dùng
+            echo "<a href='giohang.php?UserID=" . $user['UserID'] . "'>Giỏ Hàng</a>"; 
     } else {
-        echo "<a href='loginform.php'>Đăng nhập</a>";
+        echo "<a href='loginform.php'>Đăng nhập</a>"; echo "<a href='giohang.php'>Giỏ Hàng</a>"; 
     }
 } else {
     echo "<a href='loginform.php'>Đăng nhập</a>";
+ echo "<a href='giohang.php'>Giỏ Hàng</a>"; 
 }
-
-echo '<a href="giohang.php">Giỏ Hàng</a>';
  ?>
  
        
@@ -110,7 +114,7 @@ if (isset($_SESSION['username'])) {
             echo "<p><strong>Address:</strong> " . $user['Address'] . "</p>";
             echo "<p><strong>Phone:</strong> " . $user['Phone'] . "</p>";
             echo "<p><strong>Sex:</strong> " . $user['Sex'] . "</p>";
-            echo "<a href='#' class='edit'>Edit Profile</a>";
+            echo "<a href='edituser.php?UserID=" . $user['UserID'] . "' class='edit'>Edit Profile</a>";
             echo "<a href='logout.php' class='edit'>Logout</a>";
             echo "</div>";
     

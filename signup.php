@@ -40,7 +40,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
-    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="signup.css">  <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
 </head>
 <body>
 <header> <!-- Thanh điều hướng -->
@@ -54,9 +57,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="dropdown">
                 <button class="dropbtn">Danh Mục</button>
                 <div class="dropdown-content">
-                    <a href="#">Apple</a>
-                    <a href="#">Samsung</a>
-                    <a href="#">Xiaomi</a>
+                <a href="filter.php?Brand=Apple">Apple</a>
+            <a href="filter.php?Brand=SamSung">Samsung</a>
+            <a href="filter.php?Brand=Xiaomi">Xiaomi</a>
                 </div>
             </div>
 

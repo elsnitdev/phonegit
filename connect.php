@@ -1,7 +1,7 @@
 <?php 
 const _USER='root';
 const _PASS='';
-const _DB='WebPhone';
+const _DB='tphone';
 const _HOST='localhost';
 
 try{

@@ -36,6 +36,7 @@
         <th>Image</th>
     </tr>
     <?php
+    session_start(); 
     require_once "../connect.php";
     $sql = "select * from products";
     
@@ -49,6 +50,7 @@
             <td><?php echo $product['Brand']; ?></td>
             <td><?php echo $product['Category']; ?></td>
             <td><?php echo $product['Image']; ?></td>
+            <td> <a  href="updateProduct.php?ProductID=<?php echo $product['ProductID']; ?>">Update Product</a></td> 
         </tr>
     <?php endforeach; ?>
 </table>

@@ -49,6 +49,10 @@ $users = $statement->fetchAll(PDO::FETCH_ASSOC);
                 <td><?php echo $user['Address']; ?></td>
                 <td><?php echo $user['Phone']; ?></td>
                 <td><?php echo $user['Sex']; ?></td>
+                <td>
+            <a href="update.php?UserID=<?php echo $user['UserID']; ?>">Edit</a>
+            <a href="delete.php?UserID=<?php echo $user['UserID']; ?>">Delete</a>
+        </td>
             </tr>
         <?php endforeach; ?>
     </table>

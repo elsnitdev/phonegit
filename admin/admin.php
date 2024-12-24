@@ -60,25 +60,57 @@ require_once "../connect.php";
                 <!-- Doanh thu -->
                 <div class="box">
                     <h3>Tổng Doanh Thu</h3>
-                    <p class="revenue">$12,345.67</p>
+                    <?php 
+        $sql = "SELECT SUM(TotalAmount) AS TotalRevenue FROM Orders";
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+        $totalRevenue = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ($totalRevenue && isset($totalRevenue['TotalRevenue'])) {
+            $formattedRevenue = number_format($totalRevenue['TotalRevenue'], 0, ',', '.');
+            echo  $formattedRevenue. "đ";
+        } else {
+            echo "<p>Không có dữ liệu doanh thu.</p>";
+        }
+        ?>
                 </div>
 
                 <!-- Đơn hàng mới -->
                 <div class="box">
                     <h3>Đơn Hàng Mới</h3>
-                    <p class="orders">45</p>
+                    <?php 
+        $sql = "SELECT COUNT(orderID) AS TotalOrder FROM Orders";
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+        $TotalOrder = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ($TotalOrder && isset($TotalOrder['TotalOrder'])) {
+            $TotalOrder =$TotalOrder['TotalOrder'];
+            echo  $TotalOrder;
+        } else {
+            echo "<p>Không có dữ liệu doanh thu.</p>";
+        }
+        ?>
                 </div>
 
-                <!-- Sản phẩm hết hàng -->
-                <div class="box">
-                    <h3>Sản phẩm Hết Hàng</h3>
-                    <p class="out-of-stock">12</p>
-                </div>
+             
 
                 <!-- Khách hàng mới -->
                 <div class="box">
                     <h3>Khách Hàng Mới</h3>
-                    <p class="new-customers">10</p>
+                    <?php 
+        $sql = "SELECT COUNT(UserID) AS user FROM Users";
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+        if ($user && isset($user['user'])) {
+            $user = $user['user'];
+            echo  $user;
+        } else {
+            echo "<p>Không có dữ liệu doanh thu.</p>";
+        }
+        ?>
                 </div>
             </div>
 
@@ -91,7 +123,7 @@ require_once "../connect.php";
 
                 <div class="order-management">
                     <h2>Quản Lý Đơn Hàng</h2>
-                    <button class="btn">Danh Sách Đơn Hàng</button>
+                    <button class="btn"><a href="Orders.php"> Danh Sách Đơn Hàng</a></button>
                     <button class="btn">Đơn Hàng Đang Xử Lý</button>
                 </div>
 

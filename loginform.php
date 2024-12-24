@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if($username=='admin'&&$password=='123'){
  
    // $_SESSION['username'] = $username;
-    header("Location: http://localhost/PHONE/Phone/WEBPHONE/admin/admin.php");
+    header("Location: http://localhost/PHONE/phonegit/admin/admin.php");
     exit();
 }
 else   { $statement = $conn->prepare("SELECT * FROM Users WHERE Username = :username AND Password = :password");
@@ -28,7 +28,7 @@ else   { $statement = $conn->prepare("SELECT * FROM Users WHERE Username = :user
 
             $_SESSION['username'] = $user['Username']; // Lưu tên người dùng vào session
 
-            header("Location: http://localhost/PHONE/Phone/WEBPHONE/index.php");
+            header("Location: http://localhost/PHONE/phonegit/index.php");
             exit();
         }
     } else {
@@ -46,7 +46,10 @@ else   { $statement = $conn->prepare("SELECT * FROM Users WHERE Username = :user
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="login.css">  <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
     <title>Login</title>
 </head>
 <body>
@@ -61,9 +64,9 @@ else   { $statement = $conn->prepare("SELECT * FROM Users WHERE Username = :user
             <div class="dropdown">
                 <button class="dropbtn">Danh Mục</button>
                 <div class="dropdown-content">
-                    <a href="#">Apple</a>
-                    <a href="#">Samsung</a>
-                    <a href="#">Xiaomi</a>
+                <a href="filter.php?Brand=Apple">Apple</a>
+            <a href="filter.php?Brand=SamSung">Samsung</a>
+            <a href="filter.php?Brand=Xiaomi">Xiaomi</a>
                 </div>
             </div>
 
