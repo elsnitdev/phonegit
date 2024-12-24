@@ -2,37 +2,40 @@
 session_start();
 require_once "connect.php";
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 if($username=='admin'&&$password=='123'){
- 
-   // $_SESSION['username'] = $username;
-    header("Location: http://localhost/PHONE/phonegit/admin/admin.php");
-    exit();
+   
+ $_SESSION['username']=$username;
+ header("Location: http://localhost/PHONE/phonegit/admin/admin.php");
+ exit();
 }
+   
 else   { $statement = $conn->prepare("SELECT * FROM Users WHERE Username = :username AND Password = :password");
     $statement->bindParam(':username', $username);
     $statement->bindParam(':password', $password);
     $statement->execute();
     $user = $statement->fetch(PDO::FETCH_ASSOC);
     if ($user) {
-    
-       if ($user['active'] == true) {
-            $errorMessage = "Your account is currently inactive. Please contact support.";
+    // xét điều kiện đăng nhập
+       if ($user['active']) {
+            $errorMessage = "taif khoản hiện đang được sử dụng ";
         } else {
-            // Cập nhật cột 'active' thành true
-            $updateStatement = $conn->prepare("UPDATE Users SET active = true WHERE Username = :username");
-            $updateStatement->bindParam(':username', $username);
-            $updateStatement->execute();
+            
+            $statement = $conn->prepare("UPDATE Users SET active = true WHERE Username = :username");
+            $statement->bindParam(':username', $username);
+            $statement->execute();
 
-            $_SESSION['username'] = $user['Username']; // Lưu tên người dùng vào session
+            $_SESSION['username'] = $user['Username']; 
+            
 
             header("Location: http://localhost/PHONE/phonegit/index.php");
             exit();
         }
     } else {
-        $errorMessage = "Invalid username or password";
+        $errorMessage = "sai ten hoac pass";
     }
     }
                 }
@@ -53,14 +56,14 @@ else   { $statement = $conn->prepare("SELECT * FROM Users WHERE Username = :user
     <title>Login</title>
 </head>
 <body>
-<header> <!-- Thanh điều hướng -->
+<header>
     <nav class="navbar">
         <div class="logo">
-            <a href="index.php">Tphone</a> <!-- Tên trang web -->
+            <a href="index.php">Tphone</a> 
         </div>
         
         <div class="nav-items">
-            <!-- Thanh chọn danh mục -->
+          
             <div class="dropdown">
                 <button class="dropbtn">Danh Mục</button>
                 <div class="dropdown-content">
@@ -70,15 +73,15 @@ else   { $statement = $conn->prepare("SELECT * FROM Users WHERE Username = :user
                 </div>
             </div>
 
-            <!-- Thanh tìm kiếm -->
+           
             <div class="search-container">
                 <input type="text" placeholder="Tìm kiếm..." class="search-input">
                 <button class="search-btn">
-                <i class='bx bx-search'></i> <!-- Icon tìm kiếm -->
+                <i class='bx bx-search'></i> 
                 </button>
             </div>
 
-            <!-- Các liên kết điều hướng -->
+          
             <a href="index.php">Trang Chủ</a>
             <a href="loginform.php">Đăng Nhập</a>
             <a href="giohang.php">Giỏ Hàng</a>
@@ -110,14 +113,6 @@ else   { $statement = $conn->prepare("SELECT * FROM Users WHERE Username = :user
     </div></main><?php if (!empty($successMessage)): ?>
     <div id="successMessage" style="display: none;"><?php echo $successMessage; ?></div>
 <?php endif; ?>
-    <script>
-    // thong bao dang nhap thanh cong!
-    document.addEventListener('DOMContentLoaded', function() {
-        var successMessage = document.getElementById('successMessage').textContent;
-        if (successMessage) {
-            alert(successMessage);
-        }
-    });
-</script>
+   
 </body>
 </html>

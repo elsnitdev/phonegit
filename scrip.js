@@ -41,25 +41,3 @@ function plusSlides(n) {
   }
   slides[slideIndex - 1].style.display = "block";
 }
-
-$(document).ready(function () {
-  // Định nghĩa hàm xử lý sự kiện click trên thẻ <a>
-  function handleDropdownItemClick() {
-    var brand = $(this).text();
-    console.log(brand);
-  }
-
-  // Gán sự kiện click cho các thẻ <a> trong dropdown
-  $(".dropdown-content a").click(handleDropdownItemClick);
-
-  // Hàm khác muốn gọi lại hàm xử lý sự kiện click
-  function anotherFunction() {
-    // Gọi lại hàm xử lý sự kiện click trên thẻ <a>
-    handleDropdownItemClick.call($(".dropdown-content a")[0]);
-  }
-});
-
-//clickl san pham
-function viewProduct(productID) {
-  window.location.href = "products.php?ProductID=" + productID;
-}

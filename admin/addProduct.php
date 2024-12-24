@@ -1,5 +1,16 @@
-    <?php
-    session_start();
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../login.css">
+<link rel="stylesheet" href="show.css">
+<title>Add Product</title>
+</head>
+<body>
+    <header>    <?php session_start();
+   include "nav.php";
     require_once "../connect.php";
     if ($_SERVER["REQUEST_METHOD"] == "POST")  {
             $name = $_POST['name'];
@@ -33,17 +44,10 @@
             echo "<p style='color:red'>LOI</p>";
     
     ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add Product</title>
-</head>
-<body>
+</header>
 <h1>Add Product</h1>
 
+<main>
 <form action="addProduct.php" method="post" enctype="multipart/form-data">
     <label for="name">Name:</label>
     <input type="text" name="name" id="name" required><br><br>
@@ -65,6 +69,6 @@
 
     <button type="submit">Add Product</button>
  
-</form>
+</form></main>
 </body>
 </html>

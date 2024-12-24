@@ -1,63 +1,43 @@
-<?php
+<?php session_start();
 require_once "../connect.php";
-
+if(!isset($_SESSION['username'])||($_SESSION['username']!='admin'))
+{
+    header("location:http://localhost/PHONE/phonegit/index.php");
+    exit();
+}
 if (isset($_GET['UserID'])) {
     $userID = $_GET['UserID'];
 
-    // Xác định và lấy OrderID của tất cả các đơn hàng của người dùng
-    $getOrderIDsSql = "SELECT OrderID FROM Orders WHERE UserID = :userID";
-    $getOrderIDsStatement = $conn->prepare($getOrderIDsSql);
-    $getOrderIDsStatement->bindParam(':userID', $userID);
-    $getOrderIDsStatement->execute();
-    $orderIDs = $getOrderIDsStatement->fetchAll(PDO::FETCH_COLUMN);
+    // lấy OrderID của tất cả các đơn hàng của người dùng
+    $sql = "SELECT OrderID FROM Orders WHERE UserID = :userID";
+    $statement = $conn->prepare($sql);
+    $statement->bindParam(':userID', $userID);
+    $statement->execute();
+    $orderIDs = $statement->fetchAll(PDO::FETCH_COLUMN);
 
-    // Xóa tất cả chi tiết đơn hàng liên quan đến các OrderID
+    // Xóa tất cả ctdh liên quan đến các OrderID
     foreach ($orderIDs as $orderID) {
-        $deleteOrderDetailsSql = "DELETE FROM OrderDetails WHERE OrderID = :orderID";
-        $deleteOrderDetailsStatement = $conn->prepare($deleteOrderDetailsSql);
-        $deleteOrderDetailsStatement->bindParam(':orderID', $orderID);
-        $deleteOrderDetailsStatement->execute();
+        $sql = "DELETE FROM OrderDetails WHERE OrderID = :orderID";
+        $statement = $conn->prepare($sql);
+        $statement->bindParam(':orderID', $orderID);
+        $statement->execute();
     }
 
     // Xóa tất cả các đơn hàng của người dùng
-    $deleteOrdersSql = "DELETE FROM Orders WHERE UserID = :userID";
-    $deleteOrdersStatement = $conn->prepare($deleteOrdersSql);
-    $deleteOrdersStatement->bindParam(':userID', $userID);
-    $deleteOrdersStatement->execute();
+    $sql = "DELETE FROM Orders WHERE UserID = :userID";
+    $statement = $conn->prepare($sql);
+    $statement->bindParam(':userID', $userID);
+    $statement->execute();
 
     // Xóa người dùng
-    $deleteUserSql = "DELETE FROM Users WHERE UserID = :userID";
-    $deleteUserStatement = $conn->prepare($deleteUserSql);
-    $deleteUserStatement->bindParam(':userID', $userID);
+    $sql = "DELETE FROM Users WHERE UserID = :userID";
+    $statement = $conn->prepare($sql);
+    $statement->bindParam(':userID', $userID);
 
-    if ($deleteUserStatement->execute()) {
-        echo "Người dùng và các dữ liệu liên quan đã được xóa thành công.";
+    if ($statement->execute()) {
+       header("location:http://localhost/PHONE/phonegit/admin/customer.php");
     } else {
         echo "Có lỗi xảy ra khi xóa người dùng.";
     }
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User</title>
-</head>
-
-<body>
-    <h1>Delete User</h1>
-    <form method="POST">
-        <label for="username">Username:</label>
-        <input type="text" name="username" value="<?php echo $user['Username']; ?>"><br><br>
-
-        <!-- Các trường thông tin khác để chỉnh sửa -->
-
-        <button type="submit">Update</button>
-        <button type="submit" name="delete" onclick="return confirm('Bạn có chắc chắn muốn xóa người dùng này?')">Delete</button>
-    </form>
-</body>
-
-</html>

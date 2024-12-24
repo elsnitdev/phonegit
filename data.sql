@@ -43,3 +43,15 @@ CREATE TABLE OrderDetails (
     FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
+-- Tạo bảng items
+CREATE TABLE items (
+  ItemID INT NOT NULL AUTO_INCREMENT,
+  UserID INT NOT NULL,
+  ProductID INT NOT NULL,
+  Quantity INT NOT NULL,
+  PRIMARY KEY (ItemID),
+   FOREIGN KEY (UserID) REFERENCES Users(UserID),
+  FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
+  
+ 
+) 

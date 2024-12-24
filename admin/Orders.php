@@ -5,35 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông Tin Đơn Hàng</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        table, th, td {
-            border: 1px solid black;
-        }
-        
-        th, td {
-            padding: 8px;
-            text-align: left;
-        }
-        
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
+ <link rel="stylesheet" href="show.css">
 </head>
 
 <body>
+<div class="admin-container">
+        <!-- Sidebar -->
+        <?php include "nav.php"; ?>
+</div>
     <h1>Thông Tin Đơn Hàng</h1>
 
-    <?php
-    // Kết nối với cơ sở dữ liệu
+    <?php session_start();
+   
     require_once "../connect.php";
-
-    // Truy vấn cơ sở dữ liệu để lấy thông tin đơn hàng
+    if(!isset($_SESSION['username'])||($_SESSION['username']!='admin'))
+    {
+        header("location:http://localhost/PHONE/phonegit/index.php");
+        exit();
+    }
+    
     $sql = "SELECT Orders.OrderID, Orders.UserID, Orders.OrderDate, Orders.TotalAmount, Products.Name, OrderDetails.Quantity, OrderDetails.Price
             FROM Orders
             INNER JOIN OrderDetails ON Orders.OrderID = OrderDetails.OrderID

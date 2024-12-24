@@ -4,7 +4,7 @@ require_once "connect.php";
 if (isset($_GET['UserID'])) {
     $userID = $_GET['UserID'];
 
-    // Truy vấn cơ sở dữ liệu để lấy thông tin người dùng dựa trên UserID
+    // lấy thông tin người dùng dựa trên UserID
     $sql = "SELECT * FROM users WHERE UserID = :userID";
     $statement = $conn->prepare($sql);
     $statement->bindParam(':userID', $userID);
@@ -17,26 +17,26 @@ if (isset($_GET['UserID'])) {
     }
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $username = $_POST['username'];
+     
         $email = $_POST['email'];
         $fullname = $_POST['fullname'];
         $address = $_POST['address'];
         $phone = $_POST['phone'];
         $sex = $_POST['sex'];
 
-        // Cập nhật thông tin người dùng trong cơ sở dữ liệu
-        $updateSql = "UPDATE users SET Username = :username, Email = :email, Fullname = :fullname, Address = :address, Phone = :phone, Sex = :sex WHERE UserID = :userID";
-        $updateStatement = $conn->prepare($updateSql);
-        $updateStatement->bindParam(':username', $username);
-        $updateStatement->bindParam(':email', $email);
-        $updateStatement->bindParam(':fullname', $fullname);
-        $updateStatement->bindParam(':address', $address);
-        $updateStatement->bindParam(':phone', $phone);
-        $updateStatement->bindParam(':sex', $sex);
-        $updateStatement->bindParam(':userID', $userID);
+        // Cập nhật thông tin 
+        $sql = "UPDATE users SET  Email = :email, Fullname = :fullname, Address = :address, Phone = :phone, Sex = :sex WHERE UserID = :userID";
+        $statement = $conn->prepare($sql);
+       
+        $statement->bindParam(':email', $email);
+        $statement->bindParam(':fullname', $fullname);
+        $statement->bindParam(':address', $address);
+        $statement->bindParam(':phone', $phone);
+        $statement->bindParam(':sex', $sex);
+        $statement->bindParam(':userID', $userID);
 
-        if ($updateStatement->execute()) {
-            echo "Thông tin người dùng đã được cập nhật thành công.";
+        if ($statement->execute()) {
+           header("location:http://localhost/PHONE/phonegit/User.php");
         } else {
             echo "Có lỗi xảy ra khi cập nhật thông tin người dùng.";
         }
@@ -57,7 +57,7 @@ if (isset($_GET['UserID'])) {
     <h1>Edit User</h1>
     <form method="POST">
         <label for="username">Username:</label>
-        <input type="text" name="username" value="<?php echo $user['Username']; ?>"><br><br>
+      <label for=""><?php echo $user['Username']; ?></label><br><br>
 
         <label for="email">Email:</label>
         <input type="email" name="email" value="<?php echo $user['Email']; ?>"><br><br>
@@ -70,9 +70,13 @@ if (isset($_GET['UserID'])) {
 
         <label for="phone">Phone:</label>
         <input type="text" name="phone" value="<?php echo $user['Phone']; ?>"><br><br>
-
-        <label for="sex">Sex:</label>
-        <input type="text" name="sex" value="<?php echo $user['Sex']; ?>"><br><br>
+        <div class="sex">
+          <label class="sexMF" for=""
+            ><input type="radio" checked name="sex" id="male" value="male"/> Male</label
+          ><label for="" class="sexMF"
+            ><input type="radio" name="sex" id="female" value="female" /> Female</label
+          >
+        </div>
 
         <button type="submit">Update</button>
     </form>

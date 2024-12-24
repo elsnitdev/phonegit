@@ -81,7 +81,7 @@ if(isset($_GET['UserID'])){
             $OrderDate = date('Y-m-d H:i:s');
             $Quantity=$_POST['Quantity'];
             $TotalAmount=$Price*  $Quantity;
-            // Thêm dữ liệu vào bảng 'orders'
+            // add dl vào orders
             $sql = "INSERT INTO orders (UserID, OrderDate, TotalAmount  ) VALUES (:UserID, :OrderDate, :TotalAmount)";
             $statement = $conn->prepare($sql);
             $statement->bindParam(':UserID', $UserID);
@@ -89,7 +89,7 @@ if(isset($_GET['UserID'])){
             $statement->bindParam(':TotalAmount', $TotalAmount);
             $statement->execute();
             
-            // Lấy OrderID vừa thêm vào
+            // lấy id order vừa thêmthêm
             $sql = "SELECT OrderID FROM orders WHERE UserID = :UserID ORDER BY OrderID DESC LIMIT 1";
             $statement = $conn->prepare($sql);
             $statement->bindParam(':UserID', $UserID);
@@ -97,7 +97,7 @@ if(isset($_GET['UserID'])){
             $result = $statement->fetch();
             $OrderID = $result['OrderID'];
             
-            // Thêm dữ liệu vào bảng 'orderdetails'
+            // add dl vô 'orderdetails'
             $sql = "INSERT INTO orderdetails (OrderID, ProductID, Quantity, Price) VALUES (:OrderID, :ProductID, :Quantity, :Price)";
             $statement = $conn->prepare($sql);
             $statement->bindParam(':OrderID', $OrderID);
@@ -111,8 +111,8 @@ if(isset($_GET['UserID'])){
                 echo '<script>
                 alert("Yêu cầu của bạn đã được xử lý thành công!");
                 setTimeout(function() {
-                    window.location.href = "http://localhost/PHONE/phonegit/index.php"; // Đường dẫn tới trang cần chuyển hướng
-                }); // Thời gian chờ trước khi chuyển hướng (đơn vị: mili giây)
+                    window.location.href = "http://localhost/PHONE/phonegit/index.php"; 
+                });
               </script>';
             
             
@@ -159,15 +159,15 @@ foreach ($orders as $order) :
 
 ?> </table><form class="form" action="" method="POST"><?php $sql = "SELECT SUM(TotalAmount) as total FROM ORDERS WHERE UserID = :UserID"; // Sử dụng tham số để tránh SQL injection
 $statement = $conn->prepare($sql);
-$statement->bindParam(':UserID', $ID); // Bind giá trị của UserID vào câu truy vấn
+$statement->bindParam(':UserID', $ID); 
 $statement->execute();
 $sum = $statement->fetch(PDO::FETCH_ASSOC);
 
 if ($sum && isset($sum['total'])) {
-    echo "<h3>" . $sum['total'] . "</h3>"; // Hiển thị giá trị total
+    echo "<h3>" . $sum['total'] . "</h3>"; 
 } else {
   
-    echo "<h3>No data found</h3>"; // Hiển thị thông báo nếu không tìm thấy dữ liệu
+    echo "<h3>No data found</h3>"; 
 }?>
 <input type="submit" value="MUA"></form>
 </main>

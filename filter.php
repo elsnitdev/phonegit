@@ -5,71 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">  <link
+    <link rel="stylesheet" href="index.css">  <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
 </head>
 <body>
-<header> <!-- Thanh điều hướng -->
-    <nav class="navbar">
-        <div class="logo">
-            <a href="index.php">Tphone</a> <!-- Tên trang web -->
-        </div>
-        
-        <div class="nav-items">
-    <!-- Thanh chọn danh mục -->
-    <div class="dropdown">
-        <button class="dropbtn">Danh Mục</button>
-        <div class="dropdown-content">
-           
-            <!-- <a href="filter.php" >Apple</a>
-            <a href="filter.php">Samsung</a>
-            <a href="filter.php" >Xiaomi</a>-->
-            <a href="filter.php?Brand=Apple">Apple</a>
-            <a href="filter.php?Brand=SamSung">Samsung</a>
-            <a href="filter.php?Brand=Xiaomi">Xiaomi</a>
-        </div>
-    </div>
-
-    <!-- Thanh tìm kiếm -->
-    <div class="search-container">
-        <form action="">
-        <input type="text" placeholder="Tìm kiếm..." class="search-input"></form>
-        <button class="search-btn">
-            <i class='bx bx-search'></i> <!-- Icon tìm kiếm -->
-        </button>
-    </div>
-
-    <!-- Các liên kết điều hướng -->
-    <a href="index.php">Trang Chủ</a>
-
-    <?php
- 
- session_start();
- require_once "connect.php";
-
- if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
-     $username = $_SESSION['username'];
-     $query = "SELECT * FROM Users WHERE Username = :username";
-     $statement = $conn->prepare($query);
-     $statement->bindParam(':username', $username);
-     $statement->execute();
-     $user = $statement->fetch(PDO::FETCH_ASSOC);
- 
-     if ($user) {
-        
-             echo "<a href='User.php'>" . $user['Username'] . "</a>"; // Hiển thị tên người dùng
-             echo "<a href='giohang.php?UserID=" . $user['UserID'] . "'>Giỏ Hàng</a>"; 
-     } else {
-         echo "<a href='loginform.php'>Đăng nhập</a>"; echo "<a href='giohang.php'>Giỏ Hàng</a>"; 
-     }
- } else {
-     echo "<a href='loginform.php'>Đăng nhập</a>";
-  echo "<a href='giohang.php'>Giỏ Hàng</a>"; 
- }
-
- ?></header>
+<header>
+    <?php 
+    include "header.php";
+    ?></header>
     <main>
 <div class="products-container">
     <?php 

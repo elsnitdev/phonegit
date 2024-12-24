@@ -47,37 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 <header> <!-- Thanh điều hướng -->
-    <nav class="navbar" style="background-color: #00246b;">
-        <div class="logo">
-            <a href="index.php">Tphone</a> <!-- Tên trang web -->
-        </div>
-        
-        <div class="nav-items">
-            <!-- Thanh chọn danh mục -->
-            <div class="dropdown">
-                <button class="dropbtn">Danh Mục</button>
-                <div class="dropdown-content">
-                <a href="filter.php?Brand=Apple">Apple</a>
-            <a href="filter.php?Brand=SamSung">Samsung</a>
-            <a href="filter.php?Brand=Xiaomi">Xiaomi</a>
-                </div>
-            </div>
-
-            <!-- Thanh tìm kiếm -->
-            <div class="search-container">
-                <input type="text" placeholder="Tìm kiếm..." class="search-input">
-                <button class="search-btn">
-                <i class='bx bx-search'></i> <!-- Icon tìm kiếm -->
-                </button>
-            </div>
-
-            <!-- Các liên kết điều hướng -->
-            <a href="index.php">Trang Chủ</a>
-            <a href="loginform.php">Đăng Nhập</a>
-            <a href="#">Giỏ Hàng</a>
-        </div>
-       
-    </nav></header>
+<?php include "header.php";?></header>
     <main><div class="wrapper"style="background-color: #00246b;">
       <form action="signup.php" method="POST">
         <h1>Sign Up</h1>

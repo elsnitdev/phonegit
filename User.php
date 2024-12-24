@@ -8,7 +8,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index.css">
     <style>
     main {
         display: flex;
@@ -35,60 +35,7 @@
 </style>
 </head>
 <body>
- <!-- Thanh điều hướng --><header><nav class="navbar">
-        <div class="logo">
-            <a href="index.php">Tphone</a> <!-- Tên trang web -->
-        </div>
-        
-        <div class="nav-items">
-    <!-- Thanh chọn danh mục -->
-    <div class="dropdown">
-        <button class="dropbtn">Danh Mục</button>
-        <div class="dropdown-content">
-        <a href="filter.php?Brand=Apple">Apple</a>
-            <a href="filter.php?Brand=SamSung">Samsung</a>
-            <a href="filter.php?Brand=Xiaomi">Xiaomi</a>
-        </div>
-    </div>
-
-    <!-- Thanh tìm kiếm -->
-    <div class="search-container">
-        <input type="text" placeholder="Tìm kiếm..." class="search-input">
-        <button class="search-btn">
-            <i class='bx bx-search'></i> <!-- Icon tìm kiếm -->
-        </button>
-    </div>
-
-    <!-- Các liên kết điều hướng -->
-    <a href="index.php">Trang Chủ</a>
-
-    <?php
- 
- session_start();
- require_once "connect.php";
- if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-    $query = "SELECT * FROM Users WHERE Username = :username";
-    $statement = $conn->prepare($query);
-    $statement->bindParam(':username', $username);
-    $statement->execute();
-    $user = $statement->fetch(PDO::FETCH_ASSOC);
-
-    if ($user) {
-       
-            echo "<a href='User.php'>" . $user['Username'] . "</a>"; // Hiển thị tên người dùng
-            echo "<a href='giohang.php?UserID=" . $user['UserID'] . "'>Giỏ Hàng</a>"; 
-    } else {
-        echo "<a href='loginform.php'>Đăng nhập</a>"; echo "<a href='giohang.php'>Giỏ Hàng</a>"; 
-    }
-} else {
-    echo "<a href='loginform.php'>Đăng nhập</a>";
- echo "<a href='giohang.php'>Giỏ Hàng</a>"; 
-}
- ?>
- 
-       
-    </nav></header >
+ <!-- Thanh điều hướng --><header>   <?php include "header.php";?></header >
 <main >
   
     <div class="info">

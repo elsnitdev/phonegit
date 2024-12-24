@@ -14,34 +14,32 @@
         <body  style=" background-color: #cadcfc">
         <header><nav class="navbar" style=" background-color: #00246b">
         <div class="logo">
-            <a href="index.php">Tphone</a> <!-- Tên trang web -->
+            <a href="index.php">Tphone</a> 
         </div>
         
         <div class="nav-items">
-    <!-- Thanh chọn danh mục -->
+  
     <div class="dropdown">
         <button class="dropbtn">Danh Mục</button>
         <div class="dropdown-content">
            
-            <!-- <a href="filter.php" >Apple</a>
-            <a href="filter.php">Samsung</a>
-            <a href="filter.php" >Xiaomi</a>-->
+           
             <a href="filter.php?Brand=Apple">Apple</a>
             <a href="filter.php?Brand=SamSung">Samsung</a>
             <a href="filter.php?Brand=Xiaomi">Xiaomi</a>
         </div>
     </div>
 
-    <!-- Thanh tìm kiếm -->
+  
     <div class="search-container">
         <form action="">
         <input type="text" placeholder="Tìm kiếm..." class="search-input"></form>
         <button class="search-btn">
-            <i class='bx bx-search'></i> <!-- Icon tìm kiếm -->
+            <i class='bx bx-search'></i> 
         </button>
     </div>
 
-    <!-- Các liên kết điều hướng -->
+    
     <a href="index.php">Trang Chủ</a>
 
     <?php
@@ -73,13 +71,13 @@ if (!isset($_SESSION['order'])) {
     $_SESSION['order'] = [];
 }
 
-// Lấy dữ liệu từ form
+
 if (isset($_POST['addcart']) && $_POST['addcart'] && isset($user['UserID'])) {
     $ProductID = $_POST['ProductID'];
     $UserID = $user['UserID'];
     $Quantity = $_POST['Quantity'];
-
-    // Lấy thông tin sản phẩm từ bảng Products
+$_SESSION['userID']=$user['UserID'];
+    // Lấy ttt Products
     $sql = "SELECT Price FROM Products WHERE ProductID = :ProductID";
     $statement = $conn->prepare($sql);
     $statement->bindParam(':ProductID', $ProductID);
@@ -90,7 +88,7 @@ if (isset($_POST['addcart']) && $_POST['addcart'] && isset($user['UserID'])) {
     $TotalAmount = $Price * $Quantity;
     $OrderDate = date('Y-m-d H:i:s');
 
-    // Thêm dữ liệu vào bảng 'Items'
+    // thêm vào  'Items'
     $sql = "INSERT INTO Items (UserID, ProductID, Quantity, Price) VALUES (:UserID, :ProductID, :Quantity, :Price)";
     $statement = $conn->prepare($sql);
     $statement->bindParam(':UserID', $UserID);
@@ -113,7 +111,7 @@ if (isset($_POST['addcart']) && $_POST['addcart'] && isset($user['UserID'])) {
 }
 ?>
 
-</nav></header>
+</header>
 <main>
     <table class="user-table">
         <tr>
@@ -125,7 +123,7 @@ if (isset($_POST['addcart']) && $_POST['addcart'] && isset($user['UserID'])) {
         <?php
         if (isset($user['UserID'])) {
             $ID = $user['UserID'];
-            $sql = "SELECT Items.ProductID, Products.Name, Items.Quantity, Items.Price
+            $sql = "SELECT Items.ProductID, Products.Name, Items.Quantity, Items.Price,Items.itemID
                     FROM Items
                     INNER JOIN Products ON Items.ProductID = Products.ProductID
                     WHERE Items.UserID = :UserID";
@@ -141,6 +139,8 @@ if (isset($_POST['addcart']) && $_POST['addcart'] && isset($user['UserID'])) {
                 <td><?php echo $item['Name']; ?></td>
                 <td><?php echo $item['Quantity']; ?></td>
                 <td><?php echo number_format($item['Price'], 0, ',', '.') . "₫"; ?></td>
+                <td><a href='deleteitem.php?itemID=<?php echo $item['itemID'];?>'>Xóa</a></td>
+         
             </tr>
         <?php endforeach;
         }
@@ -156,12 +156,13 @@ if (isset($_POST['addcart']) && $_POST['addcart'] && isset($user['UserID'])) {
 
     if ($sum && isset($sum['total'])) {
         echo "<h3>Total: " . number_format($sum['total'], 0, ',', '.') . "₫</h3>";
+        echo '<input type="submit" name="MUA" value="MUA">';
     } else {
-        echo "<h3>No data found</h3>";
+        echo "<h3>Giỏ hàng trống </h3>";
     }
     ?>
     
-    <input type="submit" name="MUA" value="MUA">
+    
 </form>
 
 <?php
@@ -174,7 +175,7 @@ $sql = "SELECT Orders.OrderID, OrderDetails.ProductID, Products.Name, OrderDetai
 $statement = $conn->prepare($sql);
 $statement->bindParam(':UserID', $ID);
 $statement->execute();
-$purchasedItems = $statement->fetchAll(PDO::FETCH_ASSOC);
+$Items = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 echo '<table class="purchased-items-table">
     <tr>
@@ -186,15 +187,16 @@ echo '<table class="purchased-items-table">
         <th>Total Price</th>
     </tr>';
 
-foreach ($purchasedItems as $purchasedItem) {
-    $totalPrice = $purchasedItem['Quantity'] * $purchasedItem['Price']; // Tính tổng tiền cho mỗi sản phẩm
+foreach ($Items as $Item) {
+    $totalPrice = $Item['Quantity'] * $Item['Price']; // Tính tổng tiền cho mỗi sản phẩm
     echo '<tr>
-        <td>' . $purchasedItem['OrderID'] . '</td>
-        <td>' . $purchasedItem['ProductID'] . '</td>
-        <td>' . $purchasedItem['Name'] . '</td>
-        <td>' . $purchasedItem['Quantity'] . '</td>
-        <td>' . number_format($purchasedItem['Price'], 0, ',', '.') . '₫</td>
+        <td>' . $Item['OrderID'] . '</td>
+        <td>' . $Item['ProductID'] . '</td>
+        <td>' . $Item['Name'] . '</td>
+        <td>' . $Item['Quantity'] . '</td>
+        <td>' . number_format($Item['Price'], 0, ',', '.') . '₫</td>
         <td>' . number_format($totalPrice, 0, ',', '.') . '₫</td>
+          
     </tr>';
 }
 

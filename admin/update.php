@@ -1,10 +1,25 @@
-<?php
-require_once "../connect.php";
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../login.css">
+<link rel="stylesheet" href="show.css">
+    <title>Edit User</title>
+</head>
+<header><?php session_start();   include "nav.php";
+require_once "../connect.php";
+if(!isset($_SESSION['username'])||($_SESSION['username']!='admin'))
+{
+    header("location:http://localhost/PHONE/phonegit/index.php");
+    exit();
+}
 if (isset($_GET['UserID'])) {
     $userID = $_GET['UserID'];
 
-    // Truy vấn cơ sở dữ liệu để lấy thông tin người dùng dựa trên UserID
+ 
     $sql = "SELECT * FROM users WHERE UserID = :userID";
     $statement = $conn->prepare($sql);
     $statement->bindParam(':userID', $userID);
@@ -24,37 +39,28 @@ if (isset($_GET['UserID'])) {
         $phone = $_POST['phone'];
         $sex = $_POST['sex'];
 
-        // Cập nhật thông tin người dùng trong cơ sở dữ liệu
-        $updateSql = "UPDATE users SET Username = :username, Email = :email, Fullname = :fullname, Address = :address, Phone = :phone, Sex = :sex WHERE UserID = :userID";
-        $updateStatement = $conn->prepare($updateSql);
-        $updateStatement->bindParam(':username', $username);
-        $updateStatement->bindParam(':email', $email);
-        $updateStatement->bindParam(':fullname', $fullname);
-        $updateStatement->bindParam(':address', $address);
-        $updateStatement->bindParam(':phone', $phone);
-        $updateStatement->bindParam(':sex', $sex);
-        $updateStatement->bindParam(':userID', $userID);
+      
+        $sql = "UPDATE users SET Username = :username, Email = :email, Fullname = :fullname, Address = :address, Phone = :phone, Sex = :sex WHERE UserID = :userID";
+        $statement = $conn->prepare($sql);
+        $statement->bindParam(':username', $username);
+        $statement->bindParam(':email', $email);
+        $statement->bindParam(':fullname', $fullname);
+        $statement->bindParam(':address', $address);
+        $statement->bindParam(':phone', $phone);
+        $statement->bindParam(':sex', $sex);
+        $statement->bindParam(':userID', $userID);
 
-        if ($updateStatement->execute()) {
-            echo "Thông tin người dùng đã được cập nhật thành công.";
+        if ($statement->execute()) {
+            header("location:http://localhost/PHONE/phonegit/admin/customer.php");
         } else {
             echo "Có lỗi xảy ra khi cập nhật thông tin người dùng.";
         }
     }
 }
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit User</title>
-</head>
-
+?></header>
 <body>
     <h1>Edit User</h1>
+    <main>
     <form method="POST">
         <label for="username">Username:</label>
         <input type="text" name="username" value="<?php echo $user['Username']; ?>"><br><br>
@@ -71,11 +77,15 @@ if (isset($_GET['UserID'])) {
         <label for="phone">Phone:</label>
         <input type="text" name="phone" value="<?php echo $user['Phone']; ?>"><br><br>
 
-        <label for="sex">Sex:</label>
-        <input type="text" name="sex" value="<?php echo $user['Sex']; ?>"><br><br>
-
+        <div class="sex">
+          <label class="sexMF" for=""
+            ><input type="radio" checked name="sex" id="male" value="male"/> Male</label
+          ><label for="" class="sexMF"
+            ><input type="radio" name="sex" id="female" value="female" /> Female</label
+          >
+        </div>
         <button type="submit">Update</button>
-    </form>
+    </form></main>
 </body>
 
 </html>

@@ -1,5 +1,10 @@
-<?php
+<?php session_start();
 require_once "../connect.php";
+if(!isset($_SESSION['username'])||($_SESSION['username']!='admin'))
+{
+    header("location:http://localhost/PHONE/phonegit/index.php");
+    exit();
+}
 $sql = "select * from Users";
 
 $statement = $conn->query("SELECT * FROM Users");
@@ -14,20 +19,8 @@ $users = $statement->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 <div class="admin-container">
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <h2>Admin Dashboard</h2>
-            </div>
-            <ul class="sidebar-menu">
-                <li><a href="admin.php">Dashboard</a></li>
-                <li><a href="Product.php">Quản lý Sản phẩm</a></li>
-                <li><a href="#">Quản lý Đơn hàng</a></li>
-                <li><a href="customer.php">Quản lý Khách hàng</a></li>
-                <li><a href="#">Báo cáo</a></li>
-                <li><a href="#">Cài đặt</a></li>
-            </ul>
-        </nav>
+     
+        <?php include "nav.php"; ?>
 </div>
 <h1>Thông tin Người dùng</h1>
     <table class="user-table">

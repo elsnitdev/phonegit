@@ -1,22 +1,11 @@
 <?php 
+session_start();
 require_once "../connect.php";
-// if (isset($_SESSION['username']) && !empty($_SESSION['username'])) 
-// {if($_SESSION['username']!='admin')
-// {
-//     header("location:http://localhost/PHONE/Phone/WEBPHONE/admin/admin.php");
-//     exit();
-// }
-// else
-// {
-// header("location:http://localhost/PHONE/Phone/WEBPHONE/index.php");
-// exit();
-// }
-// }
-// else {
-//     header("location:http://localhost/PHONE/Phone/WEBPHONE/loginform.php");
-// exit();
-// }
-
+if (!isset($_SESSION['username']) || $_SESSION['username'] != 'admin') {
+ 
+    header("Location: http://localhost/PHONE/phonegit/index.php");
+    exit();
+}
 
 ?>
 
@@ -30,22 +19,9 @@ require_once "../connect.php";
 </head>
 <body>
     <div class="admin-container">
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <h2>Admin Dashboard</h2>
-            </div>
-            <ul class="sidebar-menu">
-                <li><a href="admin.php">Dashboard</a></li>
-                <li><a href="Product.php">Quản lý Sản phẩm</a></li>
-                <li><a href="#">Quản lý Đơn hàng</a></li>
-                <li><a href="customer.php">Quản lý Khách hàng</a></li>
-                <li><a href="#">Báo cáo</a></li>
-                <li><a href="#">Cài đặt</a></li>
-            </ul>
-        </nav>
-
-        <!-- Main Content -->
+     
+        <?php include "nav.php"; ?>
+        
         <div class="main-content">
             <header>
                 <div class="header-left">
@@ -57,17 +33,17 @@ require_once "../connect.php";
             </header>
 
             <div class="dashboard">
-                <!-- Doanh thu -->
+               
                 <div class="box">
                     <h3>Tổng Doanh Thu</h3>
                     <?php 
-        $sql = "SELECT SUM(TotalAmount) AS TotalRevenue FROM Orders";
+        $sql = "SELECT SUM(TotalAmount) AS total FROM Orders";
         $statement = $conn->prepare($sql);
         $statement->execute();
-        $totalRevenue = $statement->fetch(PDO::FETCH_ASSOC);
+        $total = $statement->fetch(PDO::FETCH_ASSOC);
 
-        if ($totalRevenue && isset($totalRevenue['TotalRevenue'])) {
-            $formattedRevenue = number_format($totalRevenue['TotalRevenue'], 0, ',', '.');
+        if ($total && isset($total['total'])) {
+            $formattedRevenue = number_format($total['total'], 0, ',', '.');
             echo  $formattedRevenue. "đ";
         } else {
             echo "<p>Không có dữ liệu doanh thu.</p>";
@@ -75,7 +51,7 @@ require_once "../connect.php";
         ?>
                 </div>
 
-                <!-- Đơn hàng mới -->
+              
                 <div class="box">
                     <h3>Đơn Hàng Mới</h3>
                     <?php 
@@ -95,7 +71,7 @@ require_once "../connect.php";
 
              
 
-                <!-- Khách hàng mới -->
+              
                 <div class="box">
                     <h3>Khách Hàng Mới</h3>
                     <?php 
@@ -118,19 +94,19 @@ require_once "../connect.php";
                 <div class="product-management">
                     <h2>Quản Lý Sản Phẩm</h2>
                     <button class="btn"><a href="addProduct.php">Thêm Sản Phẩm</a></button>
-                    <button class="btn">Danh Sách Sản Phẩm</button>
+                    
                 </div>
 
                 <div class="order-management">
                     <h2>Quản Lý Đơn Hàng</h2>
                     <button class="btn"><a href="Orders.php"> Danh Sách Đơn Hàng</a></button>
-                    <button class="btn">Đơn Hàng Đang Xử Lý</button>
+                  
                 </div>
 
                 <div class="customer-management">
                     <h2>Quản Lý Khách Hàng</h2>
-                    <button class="btn">Danh Sách Khách Hàng</button>
-                    <button class="btn">Khách Hàng Mới</button>
+                    <button class="btn"><a href="customer.php">Danh Sách Khách Hàng</a></button>
+             
                 </div>
             </div>
         </div>
